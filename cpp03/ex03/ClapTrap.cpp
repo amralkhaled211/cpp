@@ -31,7 +31,10 @@ ClapTrap::ClapTrap(std::string name)
 ClapTrap::ClapTrap(const ClapTrap &clap)
 {
 	std::cout << "ClapTrap Copy constructor called" << std::endl;
-	*this = clap;
+	name = clap.name;
+	hitpoints = clap.hitpoints;
+	energyPoints = clap.energyPoints;
+	attackDamage = clap.attackDamage;
 }
 
 ClapTrap::~ClapTrap()
@@ -42,6 +45,8 @@ ClapTrap::~ClapTrap()
 ClapTrap &ClapTrap::operator=(const ClapTrap &clap)
 {
 	std::cout << "ClapTrap operator called" << std::endl;
+	if (this == &clap)
+		return *this;
 	name = clap.name;
 	hitpoints = clap.hitpoints;
 	energyPoints = clap.energyPoints;

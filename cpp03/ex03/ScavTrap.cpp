@@ -26,6 +26,21 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 	this->attackDamage = 20;
 }
 
+ScavTrap::ScavTrap(const ScavTrap& rhs) : ClapTrap(rhs)
+{
+	std::cout << "ScavTrap Copy constructor called" << std::endl;
+}
+
+ScavTrap& ScavTrap::operator=(const ScavTrap& rhs)
+{
+	// 1. Check for self-assignment
+	if (this == &rhs)
+		return *this;
+	// 2. Call base class assignment operator
+	ClapTrap::operator=(rhs);
+	return *this;
+}
+
 ScavTrap::~ScavTrap()
 {
 	std::cout << "ScavTrap Destructor called" << std::endl;

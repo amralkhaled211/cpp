@@ -18,9 +18,9 @@
 
 int main( void )
 {
-    DiamondTrap ash("DiamondTrap");
-    ClapTrap clap("Clap");
-    ash.attack("Clap");
+    DiamondTrap ash("Diamond");
+    ClapTrap clap("Base");
+    ash.attack("Base");
     clap.takeDamage(30);
     clap.beRepaired(10);
     ash.whoAmI();

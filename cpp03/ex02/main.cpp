@@ -17,19 +17,19 @@
 int main()
 {
     ClapTrap clap("Clap");
-    //ScavTrap scav("Scav");
+    ScavTrap scav("Scav");
     FragTrap frag("Frag");
     
     clap.attack("frag");
-    // scav.takeDamage(5);
+    scav.takeDamage(5);
     frag.takeDamage(5);
-    // scav.beRepaired(10);
+    scav.beRepaired(10);
     frag.beRepaired(10);
-    // scav.attack("Clap");
+    scav.attack("Clap");
     frag.attack("Clap");
     clap.takeDamage(20);
     clap.beRepaired(10);
-    // scav.guardGate();
+    scav.guardGate();
     frag.highFivesGuys();
     return 0;
 }

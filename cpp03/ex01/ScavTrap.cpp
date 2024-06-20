@@ -12,6 +12,12 @@
 
 #include "ScavTrap.hpp"
 
+
+ScavTrap::ScavTrap() : ClapTrap()
+{
+	std::cout << "ScavTrap Default constructor called" << std::endl;
+}
+
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
 	std::cout << "ScavTrap Pram counstructor called" << std::endl;
@@ -19,6 +25,20 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 	this->hitpoints = 100;
 	this->energyPoints = 50;
 	this->attackDamage = 20;
+}
+
+ScavTrap::ScavTrap(const ScavTrap &scav) : ClapTrap(scav)
+{
+	std::cout << "ScavTrap Copy constructor called" << std::endl;
+}
+
+ScavTrap& ScavTrap::operator=(const ScavTrap &scav)
+{
+    std::cout << "ScavTrap assignment operator called" << std::endl;
+    if (this != &scav) {
+        ClapTrap::operator=(scav); // Call base class's assignment operator to copy base class data
+    }
+    return *this;
 }
 
 ScavTrap::~ScavTrap()

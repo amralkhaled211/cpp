@@ -31,22 +31,29 @@ ClapTrap::ClapTrap(std::string name)
 ClapTrap::ClapTrap(const ClapTrap &clap)
 {
 	std::cout << "ClapTrap Copy constructor called" << std::endl;
-	*this = clap;
+	// Copy or assign other members of ClapTrap here, if any
+	name = clap.name;
+	hitpoints = clap.hitpoints;
+	energyPoints = clap.energyPoints;
+	attackDamage = clap.attackDamage;
+}
+
+ClapTrap &ClapTrap::operator=(const ClapTrap &clap)
+{
+    std::cout << "ClapTrap operator called" << std::endl;
+    if (this != &clap) {
+        // Copy or assign other members of ClapTrap here, if any
+        name = clap.name;
+        hitpoints = clap.hitpoints;
+        energyPoints = clap.energyPoints;
+        attackDamage = clap.attackDamage;
+    }
+    return *this;
 }
 
 ClapTrap::~ClapTrap()
 {
 	std::cout << "ClapTrap Destructor called" << std::endl;
-}
-
-ClapTrap &ClapTrap::operator=(const ClapTrap &clap)
-{
-	std::cout << "ClapTrap operator called" << std::endl;
-	name = clap.name;
-	hitpoints = clap.hitpoints;
-	energyPoints = clap.energyPoints;
-	attackDamage = clap.attackDamage;
-	return *this;
 }
 
 void ClapTrap::attack(const std::string& target)

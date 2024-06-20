@@ -18,7 +18,22 @@ FragTrap::FragTrap() : ClapTrap()
 	std::cout << "FragTrap Default constructor called" << std::endl;
 }
 
-FragTrap::FragTrap(std::string name)
+FragTrap::FragTrap(const FragTrap& rhs) : ClapTrap(rhs)
+{
+	std::cout << "FragTrap Copy constructor called" << std::endl;
+}
+
+FragTrap& FragTrap::operator=(const FragTrap& rhs)
+{
+    // 1. Check for self-assignment
+    if (this == &rhs)
+        return *this;
+    // 2. Call base class assignment operator
+    ClapTrap::operator=(rhs);
+    return *this;
+}
+
+FragTrap::FragTrap(std::string name) : ClapTrap(name)
 {
 	std::cout << "FragTrap Parametric constructor called" << std::endl;
 	this->name = name;

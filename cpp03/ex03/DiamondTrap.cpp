@@ -12,14 +12,46 @@
 
 #include "DiamondTrap.hpp"
 
+// DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), ScavTrap(name), FragTrap(name)
+// {
+// 	this->_name = name;
+// 	this->hitpoints = FragTrap::hitpoints;
+// 	this->energyPoints = ScavTrap::energyPoints;
+// 	this->attackDamage = FragTrap::attackDamage;
+// 	std::cout << "DiamondTrap pram constructor is called " << std::endl;
+// }
+
 DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name), ScavTrap(name), FragTrap(name)
 {
-	this->_name = name;
-	this->ClapTrap::name = name + "_clap_name"; 
-	this->hitpoints = FragTrap::hitpoints;
-	this->energyPoints = ScavTrap::energyPoints;
-	this->attackDamage = FragTrap::attackDamage;
-	std::cout << "DiamondTrap pram constructor is called " << std::endl;
+    this->_name = name;
+    this->hitpoints = FragTrap::hitpoints;
+    this->energyPoints = ScavTrap::energyPoints;
+    this->attackDamage = FragTrap::attackDamage;
+    this->ClapTrap::name = name + "_clap_name";
+    std::cout << "DiamondTrap pram constructor is called " << std::endl;
+}
+
+DiamondTrap::DiamondTrap() : ClapTrap(), ScavTrap(), FragTrap()
+{
+	std::cout << "DiamondTrap Default constructor called" << std::endl;
+}
+
+DiamondTrap::DiamondTrap(const DiamondTrap& rhs) : ClapTrap(rhs), ScavTrap(rhs), FragTrap(rhs)
+{
+	std::cout << "DiamondTrap Copy constructor called" << std::endl;
+	this->_name = rhs._name;
+}
+
+DiamondTrap& DiamondTrap::operator=(const DiamondTrap& rhs)
+{
+	// 1. Check for self-assignment
+	if (this == &rhs)
+		return *this;
+	// 2. Call base class assignment operator
+	ClapTrap::operator=(rhs);
+	this->_name = rhs._name;
+	this->ClapTrap::name = rhs._name + "_clap_name";
+	return *this;
 }
 
 DiamondTrap::~DiamondTrap()

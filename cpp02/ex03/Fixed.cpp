@@ -12,6 +12,7 @@
 
 
 #include "Fixed.hpp"
+#include <cmath>
 
 Fixed::Fixed()
 {
@@ -25,7 +26,7 @@ Fixed::Fixed(const int intNumber)
 
 Fixed::Fixed(const float floatNumber)
 {
-	this->value = static_cast<int>(floatNumber * (1 << fractionalBits));
+	this->value = roundf(floatNumber * (1 << fractionalBits));
 }
 
 Fixed::Fixed(const Fixed &fixed)
