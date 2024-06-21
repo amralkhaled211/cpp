@@ -13,7 +13,7 @@
 
 #include "Cat.hpp"
 
-Cat::Cat()
+Cat::Cat() : Animal()
 {
 	std::cout << "Cat Constructor called" << std::endl;
 	this->type = "Cat";
@@ -26,10 +26,10 @@ Cat::Cat()
 	}
 }
 
-Cat::Cat(const Cat &copy)
+Cat::Cat(const Cat &copy) : Animal(copy) : brain(new Brain(*copy.brain))
 {
 	std::cout << "Cat Copy Constructor called" << std::endl;
-	*this = copy;
+	//*this = copy;
 }
 
 Cat &Cat::operator=(const Cat &copy)
@@ -37,8 +37,9 @@ Cat &Cat::operator=(const Cat &copy)
 	std::cout << "Cat operator called" << std::endl;
 	if (this != &copy)
 	{
-		this->type = copy.type;
-		this->brain = new Brain(*copy.brain);
+		Animal::operator=(copy); // Call the base class assignment operator
+		delete this->brain; // Delete the old Brain object
+		this->brain = new Brain(*copy.brain); // Deep copy the Brain object
 	}
 	return (*this);
 }

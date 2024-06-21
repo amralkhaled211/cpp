@@ -13,16 +13,26 @@
 #include "WrongCat.hpp"
 
 
-WrongCat::WrongCat( void )
+WrongCat::WrongCat( void ) : WrongAnimal()
 {
 	this->_type = "WrongCat";
 	std::cout << "WrongCat Default Constructor called" << std::endl;
 }
 
-WrongCat::WrongCat( WrongCat const & src )
+WrongCat::WrongCat( WrongCat const & src ) : WrongAnimal(src)
 {
 	std::cout << "WrongCat Copy Constructor called" << std::endl;
 	*this = src;
+}
+
+WrongCat & WrongCat::operator=( WrongCat const & rhs )
+{
+	std::cout << "WrongCat Assignation Operator called" << std::endl;
+	if (this == &rhs)
+		return *this;
+	WrongAnimal::operator=(rhs);
+	this->_type = rhs._type;
+	return *this;
 }
 
 WrongCat::~WrongCat( void )

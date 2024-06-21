@@ -19,10 +19,19 @@ WrongAnimal::WrongAnimal( void )
 	std::cout << "WrongAnimal Default Constructor called" << std::endl;
 }
 
-WrongAnimal::WrongAnimal( WrongAnimal const & src )
+WrongAnimal::WrongAnimal( WrongAnimal const & src ) 
 {
 	std::cout << "WrongAnimal Copy Constructor called" << std::endl;
 	*this = src;
+}
+
+WrongAnimal & WrongAnimal::operator=( WrongAnimal const & rhs )
+{
+	std::cout << "WrongAnimal Assignation Operator called" << std::endl;
+	if (this == &rhs)
+		return *this;
+	this->_type = rhs._type;
+	return *this;
 }
 
 WrongAnimal::~WrongAnimal( void )

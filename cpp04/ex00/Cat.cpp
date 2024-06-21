@@ -13,13 +13,28 @@
 
 #include "Cat.hpp"
 
-Cat::Cat()
+Cat::Cat() : Animal()
 {
 	this->type = "Cat";
 	std::cout << "Cat Constructor called" << std::endl;
 }
 
-Cat::~Cat()
+Cat::Cat(const Cat &rhs) : Animal(rhs)
+{
+	this->type = rhs.type;
+	std::cout << "Cat Copy Constructor called" << std::endl;
+}
+
+Cat& Cat::operator=(const Cat &rhs)
+{
+	std::cout << "Cat Assignation Operator called" << std::endl;
+	if (this == &rhs)
+		return (*this);
+	Animal::operator=(rhs);
+	return (*this);
+}
+
+Cat::~Cat() 
 {
 	std::cout << "Cat Destructor called" << std::endl;
 }

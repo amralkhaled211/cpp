@@ -12,10 +12,25 @@
 
 #include "Dog.hpp"
 
-Dog::Dog()
+Dog::Dog() : Animal()
 {
 	this->type = "Dog";
 	std::cout << "Dog Constructor called" << std::endl;
+}
+
+Dog::Dog(const Dog &rhs) : Animal(rhs)
+{
+	this->type = rhs.type;
+	std::cout << "Dog Copy Constructor called" << std::endl;
+}
+
+Dog& Dog::operator=(const Dog &rhs)
+{
+	std::cout << "Dog Assignation Operator called" << std::endl;
+	if (this == &rhs)
+		return (*this);
+	Animal::operator=(rhs);
+	return (*this);
 }
 
 Dog::~Dog()

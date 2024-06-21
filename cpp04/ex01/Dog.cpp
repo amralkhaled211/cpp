@@ -12,7 +12,7 @@
 
 #include "Dog.hpp"
 
-Dog::Dog()
+Dog::Dog() : Animal()
 {
 	this->type = "Dog";
 	std::cout << "Dog Constructor called" << std::endl;
@@ -37,19 +37,19 @@ void Dog::makeSound() const
 	std::cout << "Wouf Wouf" << std::endl;
 }
 
-Dog::Dog(const Dog &copy)
+Dog::Dog(const Dog &copy) : Animal(copy), brain(new Brain(*copy.brain))
 {
-	std::cout << "Dog Copy Constructor called" << std::endl;
-	*this = copy;
+    std::cout << "Dog Copy Constructor called" << std::endl;
 }
 
 Dog &Dog::operator=(const Dog &copy)
 {
-	std::cout << "Dog operator called" << std::endl;
-	if (this != &copy)
-	{
-		this->type = copy.type;
-		this->brain = new Brain(*copy.brain);
-	}
-	return (*this);
+    std::cout << "Dog operator called" << std::endl;
+    if (this != &copy)
+    {
+        Animal::operator=(copy); // Call the base class assignment operator
+        delete this->brain; // Delete the old Brain object
+        this->brain = new Brain(*copy.brain); // Deep copy the Brain object
+    }
+    return (*this);
 }
