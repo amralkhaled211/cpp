@@ -25,7 +25,6 @@ class Cat : public AAnimal
 	void makeSound() const;
 	Cat(const Cat &copy);
 	Cat &operator=(const Cat &copy);
-	void getTheType() const;
 	~Cat();
 };
 

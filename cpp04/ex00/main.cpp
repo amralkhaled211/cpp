@@ -19,21 +19,22 @@
 
 int main( void )
 {
-    // std::cout << "--------------- Animal ---------------" << std::endl;
+    std::cout << "--------------- Animal ---------------" << std::endl;
 
-    // Dog d;
-    // const Animal* j = &d;//new Dog();
-    // const Animal* meta = new Animal();
-    // const Animal* i = new Cat();
+    Dog d;
+    const Animal* j = &d;//new Dog();
+    const Animal* meta = new Animal();
+    const Animal* i = new Cat();
 
-    // std::cout << "J Type: " << j->getType() << " " << std::endl;
-    // std::cout << "I Type: " << i->getType() << " " << std::endl;
-    // j->makeSound();
-    // i->makeSound();
-    // meta->makeSound();
+    std::cout << "J Type: " << j->getType() << " " << std::endl;
+    std::cout << "I Type: " << i->getType() << " " << std::endl;
+    j->makeSound();
+    i->makeSound();
+    meta->makeSound();
 
-    // delete  meta;
-    // delete  i;
+ 
+    delete  meta;
+    delete  i;
 
     std::cout << std::endl << "------------- Wrong Animal -------------" << std::endl;
 

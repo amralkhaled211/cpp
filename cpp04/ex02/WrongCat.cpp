@@ -19,11 +19,21 @@ WrongCat::WrongCat( void )
 	std::cout << "WrongCat Default Constructor called" << std::endl;
 }
 
-WrongCat::WrongCat( WrongCat const & src )
+WrongCat::WrongCat( WrongCat const & src ) : WrongAnimal(src)
 {
 	std::cout << "WrongCat Copy Constructor called" << std::endl;
-	*this = src;
 }
+
+WrongCat & WrongCat::operator=( WrongCat const & rhs )
+{
+	std::cout << "WrongCat operator called" << std::endl;
+	if (this != &rhs)
+	{
+		WrongAnimal::operator=(rhs);
+	}
+	return (*this);
+}
+
 
 WrongCat::~WrongCat( void )
 {

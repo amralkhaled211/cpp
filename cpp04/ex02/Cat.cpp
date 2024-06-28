@@ -18,18 +18,19 @@ Cat::Cat()
 	std::cout << "Cat Constructor called" << std::endl;
 	this->type = "Cat";
 	
-	try {
+	try
+	{
 		this->brain = new Brain();
 	}
-	catch (std::bad_alloc &e) {
+	catch (std::bad_alloc &e)
+	{
 		std::cerr << "Memory allocation failed: " << e.what() << std::endl;
 	}
 }
 
-Cat::Cat(const Cat &copy)
+Cat::Cat(const Cat &copy) : AAnimal(copy), brain(new Brain(*copy.brain))
 {
 	std::cout << "Cat Copy Constructor called" << std::endl;
-	*this = copy;
 }
 
 Cat &Cat::operator=(const Cat &copy)
@@ -37,8 +38,9 @@ Cat &Cat::operator=(const Cat &copy)
 	std::cout << "Cat operator called" << std::endl;
 	if (this != &copy)
 	{
-		this->type = copy.type;
-		this->brain = new Brain(*copy.brain);
+		AAnimal::operator=(copy);
+		delete this->brain;
+		this->brain = new Brain(*copy.brain);//protcet
 	}
 	return (*this);
 }

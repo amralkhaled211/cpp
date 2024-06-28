@@ -25,6 +25,16 @@ WrongAnimal::WrongAnimal( WrongAnimal const & src )
 	*this = src;
 }
 
+WrongAnimal & WrongAnimal::operator=( WrongAnimal const & rhs )
+{
+	std::cout << "WrongAnimal operator called" << std::endl;
+	if (this != &rhs)
+	{
+		this->_type = rhs.getType();
+	}
+	return (*this);
+}
+
 WrongAnimal::~WrongAnimal( void )
 {
 	std::cout << "WrongAnimal Destructor called" << std::endl;

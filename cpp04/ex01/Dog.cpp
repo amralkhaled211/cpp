@@ -47,7 +47,7 @@ Dog &Dog::operator=(const Dog &copy)
     std::cout << "Dog operator called" << std::endl;
     if (this != &copy)
     {
-        Animal::operator=(copy); // Call the base class assignment operator
+        Animal::operator=(copy); // Call the base class asnosignment operator
         delete this->brain; // Delete the old Brain object
         this->brain = new Brain(*copy.brain); // Deep copy the Brain object
     }

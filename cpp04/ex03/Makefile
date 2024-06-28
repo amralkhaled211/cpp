@@ -1,6 +1,6 @@
-NAME	= Abstract
+NAME	= Interface
 
-SRC	= main.cpp 	AAnimal.cpp 	Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
+SRC	= AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp main.cpp
 
 OBJ	= $(SRC:.cpp=.o)
 

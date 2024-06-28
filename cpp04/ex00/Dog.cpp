@@ -20,7 +20,6 @@ Dog::Dog() : Animal()
 
 Dog::Dog(const Dog &rhs) : Animal(rhs)
 {
-	this->type = rhs.type;
 	std::cout << "Dog Copy Constructor called" << std::endl;
 }
 

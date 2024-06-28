@@ -26,4 +26,4 @@ class Brain
 		~Brain(void);
 };
 
-#endif
+#endif	
