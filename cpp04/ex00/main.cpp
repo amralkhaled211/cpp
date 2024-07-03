@@ -19,7 +19,7 @@
 
 int main( void )
 {
-    std::cout << "--------------- Animal ---------------" << std::endl;
+    std::cout << "           Animal        " << std::endl;
 
     Dog d;
     const Animal* j = &d;//new Dog();
@@ -36,7 +36,7 @@ int main( void )
     delete  meta;
     delete  i;
 
-    std::cout << std::endl << "------------- Wrong Animal -------------" << std::endl;
+    std::cout << std::endl << "             Wrong Animal            " << std::endl;
 
     const WrongAnimal *wrong = new WrongAnimal();
     const WrongAnimal *wrongCat = new WrongCat();

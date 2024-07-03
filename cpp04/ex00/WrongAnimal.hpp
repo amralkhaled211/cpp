@@ -20,13 +20,10 @@ class WrongAnimal
 	public:
 		WrongAnimal();
 		WrongAnimal( WrongAnimal const & src );
-		virtual ~WrongAnimal();
 		WrongAnimal & operator=( WrongAnimal const & rhs );
-
-		//WrongAnimal & operator=( WrongAnimal const & rhs );
-
 		std::string getType( void ) const;
 		void makeSound( void ) const;
+		virtual ~WrongAnimal();
 
 	protected:
 		std::string _type;

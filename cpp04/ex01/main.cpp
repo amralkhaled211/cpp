@@ -21,11 +21,24 @@
 
 int main( void )
 {
-    const Animal* animals[4] = { new Dog(), new Dog(), new Cat(), new Cat() };
+    Animal anim;
+
+    /* const Animal* animals[4] = { new Dog(), new Dog(), new Cat(), new Cat() };
     for ( int i = 0; i < 4; i++ )
     {
         delete animals[i];
     }
+
+///copy constructor
+   Dog dog1;
+   Dog dog2 = dog1;
+
+///copy assignment operator
+   Cat cat1;
+   Cat cat2;
+
+   cat1 = cat2; */
+
 
     return 0;
 }

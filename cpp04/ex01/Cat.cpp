@@ -33,7 +33,7 @@ Cat::Cat(const Cat &copy) : Animal(copy) , brain(new Brain(*copy.brain))
 
 Cat &Cat::operator=(const Cat &copy)
 {
-	std::cout << "Cat operator called" << std::endl;
+	std::cout << "Cat assignation operator called" << std::endl;
 	if (this != &copy)
 	{
 		Animal::operator=(copy); // Call the base class assignment operator

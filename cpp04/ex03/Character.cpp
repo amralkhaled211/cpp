@@ -43,7 +43,7 @@ Character &Character::operator=(const Character &other)
     return *this;
 }
 
-Character::Character(std::string const &name) : name(name)
+Character::Character(std::string const &name) :  name(name)
 {
     for (int i = 0; i < 4; i++)
         materia[i] = NULL;
