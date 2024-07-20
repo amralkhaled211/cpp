@@ -4,6 +4,27 @@ ScalarConverter::ScalarConverter()
 {
 }
 
+
+ScalarConverter::~ScalarConverter()
+{
+}
+
+
+ScalarConverter::ScalarConverter(const ScalarConverter& src)
+{
+    *this = src;
+}
+
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter& src)
+{
+    if (this != &src)
+    {
+        *this = src;
+    }
+    return *this;
+}
+
+
 //the only public method of the class
 void ScalarConverter::convert(const std::string& literal)
 {

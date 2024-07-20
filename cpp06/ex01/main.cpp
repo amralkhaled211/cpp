@@ -1,31 +1,38 @@
 #include <iostream>
-#include <cstdint>
+#include "Serializer.hpp"
+#include "Data.hpp"
 
-#include <cstdint>
+int main()
+{
+    Data data;
+    data.value = 42;
 
-void* alignPointer(void* ptr, std::size_t alignment) {
-    // Cast the pointer to uintptr_t for arithmetic operations
-    uintptr_t address = reinterpret_cast<uintptr_t>(ptr);
+    uintptr_t serialized = reinterpret_cast<uintptr_t>(&data);
 
-    // Align the address to the specified alignment boundary
-    address = (address + alignment - 1) & ~(alignment - 1);
+    std::cout << "Serialized: " << serialized << std::endl;
 
-    // Cast the aligned address back to a pointer
-    return reinterpret_cast<void*>(address);
-}
+    Data* deserialized = reinterpret_cast<Data*>(serialized);
 
-int main() {
-    // Example usage of alignPointer
-    char buffer[100];
-
-    std::cout << "Original address: " << static_cast<void*>(buffer) << std::endl;
-
-    void* alignedPtr = alignPointer(buffer, 16);
-    std::cout << "Aligned address (16-byte): " << alignedPtr << std::endl;
-
-    alignedPtr = alignPointer(buffer, 32);
-    std::cout << "Aligned address (32-byte): " << alignedPtr << std::endl;
+    std::cout << "Data: " << deserialized->value << std::endl;
 
     return 0;
 }
+
+// int main()
+// {
+//     Data data;
+//     data.value = 42;
+//     data.value2 = 43;
+//     data.value3 = 'a';
+
+//     int *serialized = reinterpret_cast<int*>(&data);
+//     std::cout << "Serialized: " << *serialized << std::endl;
+//     serialized++;
+//     std::cout << "Serialized: " << *serialized << std::endl;
+//     serialized++;
+//     std::cout << "Serialized: " << *serialized << std::endl;
+//     char *serializedChar = reinterpret_cast<char*>(serialized);
+//     std::cout << "Serialized: " << *serializedChar << std::endl;
+//     return 0;
+// }
 
