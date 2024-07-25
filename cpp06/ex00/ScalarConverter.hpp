@@ -12,9 +12,6 @@
 
 class ScalarConverter
 {
-	public:
-	    static void convert(const std::string& literal);
-	    ~ScalarConverter();
 	private:
 	    ScalarConverter();
 		ScalarConverter(const ScalarConverter& src);
@@ -23,6 +20,9 @@ class ScalarConverter
 	    static void printInt(const std::string& literal);
 	    static void printFloat(const std::string& literal);
 	    static void printDouble(const std::string& literal);
+	public:
+	    static void convert(const std::string& literal);
+	    ~ScalarConverter();
 };
 
 
