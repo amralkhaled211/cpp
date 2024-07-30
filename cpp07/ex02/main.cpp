@@ -45,7 +45,7 @@ int main()
         std::cerr << e.what() << '\n';
     }
 
-    std::cout << "End of main" << std::endl;
+    //std::cout << "End of main" << std::endl;
     
     return 0;
 }

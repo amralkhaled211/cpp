@@ -15,7 +15,7 @@ Character::~Character()
     }
 }
 
-Character::Character(const Character &Character)
+Character::Character(const Character &Character) : ICharacter(Character)
 {
     *this = Character;
 }
