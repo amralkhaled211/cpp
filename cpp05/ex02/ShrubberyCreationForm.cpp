@@ -36,8 +36,11 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 	{
 		throw AForm::GradeTooLowException();
 	}
-	// Execute the form
 	std::ofstream file((this->getName() + "_shrubbery").c_str());
+	if (!file.is_open())
+	{
+		throw std::ios_base::failure("Failed to open file.");
+	}
 	file << "      /\\" << std::endl;
 	file << "     /  \\" << std::endl;
 	file << "    /    \\" << std::endl;
@@ -48,4 +51,5 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 	file << "     ||||" << std::endl;
 	file << "     ||||" << std::endl;
 	file.close();
-}	
+}
+

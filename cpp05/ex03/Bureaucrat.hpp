@@ -11,7 +11,7 @@ class AForm;
 class Bureaucrat
 {
 	private:
-		std::string		name;
+		const std::string		name;
 		int		grade;
 	public:
 		Bureaucrat();
@@ -44,4 +44,5 @@ class Bureaucrat
 
 
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &bureaucrat);
+
 #endif

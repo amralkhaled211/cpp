@@ -11,15 +11,16 @@ int main()
     try
 	{
         //bureaucrat should not be able to be bigger than  form in order of excute to work 
-        Bureaucrat john("John", 4); // Assuming Bureaucrat constructor takes name and grade
+        Bureaucrat john("John", 150); // Assuming Bureaucrat constructor takes name and grade
         ShrubberyCreationForm form("HomeGarden");
         //RobotomyRequestForm form("MYROBOT");
         //PresidentialPardonForm form("PardonMe");
+        std::cout << form << std::endl;
         
 
 
         std::cout << "Attempting to sign the form." << std::endl;
-        form.beSigned(john); // Assuming AForm has a method to sign the form
+        //form.beSigned(john); // Assuming AForm has a method to sign the form
         john.signForm(form); // Assuming Bureaucrat has a method to sign forms
         std::cout << "Attempting to execute the form." << std::endl;
         form.execute(john);

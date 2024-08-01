@@ -82,6 +82,6 @@ std::ostream &operator<<(std::ostream &out, AForm const &src)
 	else
 		out << "not	signed";
 
-	//out << " and requires grade " << src.getGradeToSign() << " to sign and grade " << src.getGradeToExecute() << " to execute";
+	out << " and requires grade " << src.getGradeToSign() << " to sign and grade " << src.getGradeToExecute() << " to execute";
 	return out;
 }

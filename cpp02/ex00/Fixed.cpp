@@ -21,8 +21,7 @@ Fixed::Fixed()
 Fixed::Fixed(const Fixed &fixed)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	//this->value = fixed.value;
-	*this = fixed;
+	this->value = fixed.value;
 }
 
 

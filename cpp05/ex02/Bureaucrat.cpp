@@ -22,8 +22,10 @@ Bureaucrat::~Bureaucrat()
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &bureaucrat)
 {
-	name = bureaucrat.name;
-	grade = bureaucrat.grade;
+	if (this != &bureaucrat)
+	{
+		grade = bureaucrat.grade;
+	}
 	return *this;
 }
 
@@ -43,7 +45,7 @@ void Bureaucrat::signForm(AForm &form)
 	if (form.getSigned() == true)
 		std::cout << name << " signed " << form.getName() << std::endl;
 	else
-		std::cout << name << " cannot sign the form because grade is too low" << std::endl;
+		std::cout << name << " cannot sign the form becuse the sign is false "  << std::endl;
 }
 
 void Bureaucrat::incrementGrade()
