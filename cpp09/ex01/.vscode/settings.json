@@ -1,9 +1,9 @@
 {
 	"files.associations": {
-		"*.tcc": "cpp",
 		"array": "cpp",
 		"atomic": "cpp",
 		"bit": "cpp",
+		"*.tcc": "cpp",
 		"cctype": "cpp",
 		"clocale": "cpp",
 		"cmath": "cpp",
@@ -17,7 +17,6 @@
 		"cwchar": "cpp",
 		"cwctype": "cpp",
 		"deque": "cpp",
-		"map": "cpp",
 		"string": "cpp",
 		"unordered_map": "cpp",
 		"vector": "cpp",
@@ -35,7 +34,6 @@
 		"tuple": "cpp",
 		"type_traits": "cpp",
 		"utility": "cpp",
-		"fstream": "cpp",
 		"initializer_list": "cpp",
 		"iosfwd": "cpp",
 		"iostream": "cpp",
@@ -47,9 +45,6 @@
 		"stdexcept": "cpp",
 		"streambuf": "cpp",
 		"typeinfo": "cpp",
-		"bitset": "cpp",
-		"ctime": "cpp",
-		"regex": "cpp",
 		"sstream": "cpp"
 	}
 }
