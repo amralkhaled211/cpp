@@ -5,7 +5,6 @@ RPN::RPN()
 
 }
 
-
 void validateString(const std::string &arg)
 {
     for (std::string::const_iterator it = arg.begin(); it != arg.end(); ++it)
@@ -36,21 +35,13 @@ int	get_the_resuelt(int value1, int value2, std::string oper)
 	int res;
 
 	if(oper == "*")
-	{
 		return res = value1 * value2;
-	}
 	if(oper == "+")
-	{
 		return res = value1 + value2;
-	}
 	if(oper == "/")
-	{
 		return res = value1 / value2;
-	}
 	if(oper == "-")
-	{
 		return res = value1 - value2;
-	}
 	return 0;
 }
 
@@ -71,60 +62,74 @@ int stringToInt(const std::string& str)
     return value;
 }
 
+void RPN::processRPN(char cleanedArgChar)
+{
+	this->RPN_stack.push(std::string(1, cleanedArgChar));
+	// std::cout << "just pushed :" << cleanedArgChar << std::endl;
+	std::string oper = this->RPN_stack.top();
+	this->RPN_stack.pop();
+	// std::cout << "just poped operator :" << oper << std::endl;
+	std::string value1_char = this->RPN_stack.top();
+	this->RPN_stack.pop();
+	// std::cout << "just poped value1 :" << value1_char << std::endl;
+	std::string value2_char = this->RPN_stack.top();
+	this->RPN_stack.pop();
+	// std::cout << "just poped value2 :" << value2_char << std::endl;
+	int value1 = stringToInt(value2_char); // Convert string to int
+    int value2 = stringToInt(value1_char); // Convert string to int
+    int new_value_int = get_the_resuelt(value1, value2, oper);
+    std::string new_value_str = intToString(new_value_int); // Convert int to string
+	this->RPN_stack.push(new_value_str);
+	// std::cout << "just pushed :" << new_value_str << std::endl;
+}
+
 void RPN::Calculator(const std::string &arg)
 {
 	try 
 	{
 		validateString(arg);
 		std::string cleanedArg = removeSpaces(arg);
-		//std::cout << cleanedArg << std::endl;
 		int i = 0;
 		while (cleanedArg[i])
 		{
-			if (is_operation(cleanedArg[i]) && (this->RPN_stack.size() == 2))
+			if (!is_operation(cleanedArg[i]) && cleanedArg[i + 1] && is_operation(cleanedArg[i + 1]))
 			{
-				
 				this->RPN_stack.push(std::string(1, cleanedArg[i]));
-				// std::cout << "this opertor pushed :" << cleanedArg[i] << std::endl;
-				std::string oper = this->RPN_stack.top();
-				this->RPN_stack.pop();
-				// std::cout << "this opertor are poped :" << cleanedArg[i] << std::endl;
-				std::string value1_char = this->RPN_stack.top();
-				this->RPN_stack.pop();
-				// std::cout << "this num1  are poped :" << value1_char << std::endl;
-				std::string value2_char = this->RPN_stack.top();
-				this->RPN_stack.pop();
-				// std::cout << "this num2  are poped :" << value2_char << std::endl;
-				int value1 = stringToInt(value2_char); // Convert string to int
-				// std::cout << "this is value num 1 :" << value1 << std::endl;
-            	int value2 = stringToInt(value1_char); // Convert string to int
-				// std::cout << "this is value num 2 :" << value2 << std::endl;
-            	int new_value_int = get_the_resuelt(value1, value2, oper);
-				// std::cout << "this is final res :" << new_value_int << std::endl;
-            	std::string new_value_str = intToString(new_value_int); // Convert int to string
-				this->RPN_stack.push(new_value_str);
-				// std::cout << "size of stack :" << this->RPN_stack.size() << std::endl;
+
+				int j = 1;
+				int opertions = 0;
+				int stack_size = this->RPN_stack.size();
+				while (j < stack_size)
+				{
+					if (cleanedArg[i + j] && is_operation(cleanedArg[i + j]))
+						opertions++;
+					else
+						throw std::invalid_argument("There is not enough opertions");
+					j++;
+				}
+				if (cleanedArg[i + j] && is_operation(cleanedArg[i + j]))
+					throw std::invalid_argument("There is not enough number to calculate");
+				while (opertions > 0)
+				{
+					i++;
+					processRPN(cleanedArg[i]);
+					opertions--;
+				}
+			}
+			else if (!is_operation(cleanedArg[i]))
+			{
+				this->RPN_stack.push(std::string(1, cleanedArg[i]));
+				if (cleanedArg[i + 1] == '\0')
+					throw std::invalid_argument("You need to put valid input");
 			}
 			else
-			{
-				this->RPN_stack.push(std::string(1, cleanedArg[i]));
-				// std::cout <<"numbers bening pushed " << cleanedArg[i] << std::endl;
-				
-			}
+					throw std::invalid_argument("You need to put valid input");
 			i++;
 		}
-		std::cout << this->RPN_stack.size() << std::endl;
 		std::cout << this->RPN_stack.top() << std::endl;
-		// std::cout << "Stack elements: ";
-        // while (!this->RPN_stack.empty())
-        // {
-        //     std::cout << this->RPN_stack.top();
-        //     this->RPN_stack.pop();
-        // }
-        // std::cout << std::endl;
 	}
 	catch (std::exception &e)
 	{
-		std::cerr << "Error " <<  e.what() << std::endl;
+		std::cerr << "Error : " <<  e.what() << std::endl;
 	}
 }
