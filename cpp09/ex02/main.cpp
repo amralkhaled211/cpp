@@ -20,28 +20,79 @@ void sort_vector(std::vector<int>& pinding_chain, std::vector<int>& main_chain, 
     sorted_main_chain.insert(sorted_main_chain.begin(), find_pending_elment(pinding_chain, main_chain, sorted_main_chain[i]));
     i++;
     size = sorted_main_chain.size();
-    std::cout << "size : " << size <<std::endl;
     while (i <= size)///here i might need to change the iterating go jacop stayle
     {
         size = sorted_main_chain.size();
-        pending_num = find_pending_elment(pinding_chain, main_chain, sorted_main_chain[i]);/// I might need to return -1 in case i dont find
+        if (sorted_main_chain[i + 1])
+        {
+            pending_num = find_pending_elment(pinding_chain, main_chain, sorted_main_chain[i + 1]);/// I might need to return -1 in case i dont find //// i gotta understand why did i do this sorted_main_chain[i + 1]
+            //std::cout << "sorted main chain[i + 1] : " << sorted_main_chain[i + 1] << std::endl;
+            //std::cout << "What is the pending num : " << pending_num << std::endl;
+        }
+        else
+            break;
 
         ///I have to perform the binary search
         if (pending_num < sorted_main_chain[i + 1])
         {
-            //we wanna discharge the rest element from the right side : this mean that the number is samll
-            int end = i;
-            std::cout << "what is end : "  << end <<  std::endl;
-           // int begin = 0;
-            int middle = end / 2;
-            std::cout << "What is in the middle :" << sorted_main_chain[middle] << "  what is the middle :" << middle<< std::endl;
+            //std::cout << "sorted main chain[i + 1] : " << sorted_main_chain[i + 1] << std::endl;
+            int begin = 0;
+            int end = i + 2;
+            int middle;
+
+            while (begin <= end)
+            {
+                middle = begin + (end - begin) / 2;
+
+                //std::cout << "What is in the middle :" << sorted_main_chain[middle] << "  what is the middle :" << middle << std::endl;
+                //std::cout << "What is the pending num :" << pending_num << std::endl;
+                //std::cout << "What is the begin : " << begin<< std::endl;
+                //std::cout << "What is the end :" << end << std::endl;
+                // return;
+                if (sorted_main_chain[middle] < pending_num)
+                {
+                    std::cout << "I am in the first if" << std::endl;
+                    begin = middle + 1;
+                    // std::cout << "I am in the first if" << std::endl;
+                    // std::cout << "What is the middle : " << middle << std::endl;
+                    // std::cout << "What is the pending num : " << pending_num << std::endl;
+                    // std::cout << "What is the sorted main chain : " << sorted_main_chain[middle] << std::endl;
+                    // std::cout << "-=============================" << std::endl;
+                }
+                else if (sorted_main_chain[middle] > pending_num && sorted_main_chain[middle - 1] < pending_num)
+                {
+                    std::cout << "I am in the third if" << std::endl;
+                    sorted_main_chain.insert(sorted_main_chain.begin() + middle, pending_num);
+                    break;
+                    //std::cout << "did not break" << std::endl;
+                }
+                else if (sorted_main_chain[middle] > pending_num)
+                {
+                    std::cout << "I am in the second if" << std::endl;
+                    end = middle - 1;
+                    //std::cout << "I am in the second if" << std::endl;
+                    //std::cout << "What is the middle : " << middle << std::endl;
+                    //std::cout << "What is the pending num : " << pending_num << std::endl;
+                    //std::cout << "What is the sorted main chain : " << sorted_main_chain[middle] << std::endl;
+                    //std::cout << "-=============================" << std::endl;
+                }
+                else
+                {
+                    std::cout << "did not work " << std::endl;
+                    //return;
+                }
+            }
+            i++;
             break;
         }
-        // else
-        // {
-        //     //we wanna discharge the rest element from the left side : this mean that the number is big
+        else if (pending_num > sorted_main_chain[i + 1])
+        {
+            //we wanna discharge the rest element from the left side : this mean that the number is big
+            std::cout << "I am in the else" << std::endl;
+            return;
 
-        // }
+        }
+        i++;
 
     }
 }
@@ -64,12 +115,12 @@ int	main(int ac, char **av)
 
     //Now i have to sort the main_chain
     std::vector<int> sorted_main_chain = getSortedMainChain(main_chain);
-    std::cout << "Large elements: ";
-    printVector(main_chain);
-	std::cout << "Small elements: ";
-    printVector(pending_chain);
-    std::cout << "before sorted main chain: ";
-    printVector(sorted_main_chain);
+    //std::cout << "Large elements: ";
+    //printVector(main_chain);
+	//std::cout << "Small elements: ";
+    //printVector(pending_chain);
+    //std::cout << "before sorted main chain: ";
+    //printVector(sorted_main_chain);
     
 
 
