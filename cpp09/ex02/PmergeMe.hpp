@@ -14,7 +14,7 @@ int find_pending_elment(std::vector<int>& pending_chain, std::vector<int>& main_
 std::vector<int> sort_vector(std::vector<int>& pinding_chain, std::vector<int>& main_chain, std::vector<int>& sorted_main_chain);
 std::vector<int> generate_jacobsthal_sequence(int limit);
 std::vector<int> reorder_jacobsthal_sequence(const std::vector<int>& jacobsthal, int limit);
-std::vector<int> sort_vector1(std::vector<int>& pinding_chain, std::vector<int>& main_chain, std::vector<int>& sorted_main_chain);
+std::vector<int> sort_vector(std::vector<int>& pinding_chain, std::vector<int>& main_chain, std::vector<int>& sorted_main_chain);
 void printVector_B(const std::vector<int>& vec);
 void printPending(std::vector<int>& pending_chain, std::vector<int>& main_chain, std::vector<int>& sorted_main_chain);
 

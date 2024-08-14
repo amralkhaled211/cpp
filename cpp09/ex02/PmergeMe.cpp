@@ -1,13 +1,14 @@
 #include "PmergeMe.hpp"
 
 bool is_odd = false;
+int comp = 0;
 
 std::vector<int> Insert_elements(int ac, char **av)
 {
     std::vector<int> elements;
     for (int i = 1; i < ac; i++)
     {
-        std::stringstream ss(std::string(av[i]));
+        std::stringstream ss((std::string(av[i])));
         int value;
         if (ss >> value && value >= 0)
         {
@@ -68,13 +69,74 @@ void divideAndCompare(const std::vector<int>& input, std::vector<int>& smallElem
 }
 
 
-std::vector<int> getSortedMainChain(const std::vector<int>& main_chain)// i have to perform here the merge sort algrothim
+// std::vector<int> getSortedMainChain(const std::vector<int>& main_chain)// i have to perform here the merge sort algrothim
+// {
+//     std::vector<int> sorted_chain = main_chain;
+//     std::sort(sorted_chain.begin(), sorted_chain.end());
+//     return sorted_chain;
+// }
+
+void merge(std::vector<int>& arr, int left, int mid, int right)
 {
-    std::vector<int> sorted_chain = main_chain;
-    std::sort(sorted_chain.begin(), sorted_chain.end());
-    return sorted_chain;
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    std::vector<int> leftArr(n1);
+    std::vector<int> rightArr(n2);
+
+    for (int i = 0; i < n1; ++i)
+        leftArr[i] = arr[left + i];
+    for (int i = 0; i < n2; ++i)
+        rightArr[i] = arr[mid + 1 + i];
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2)
+    {
+        if (leftArr[i] <= rightArr[j])
+        {
+            arr[k] = leftArr[i];
+            ++i;
+            comp++;
+        }
+        else
+        {
+            arr[k] = rightArr[j];
+            ++j;
+            comp++;
+        }
+        ++k;
+    }
+    while (i < n1)
+    {
+        arr[k] = leftArr[i];
+        ++i;
+        ++k;
+    }
+    while (j < n2)
+    {
+        arr[k] = rightArr[j];
+        ++j;
+        ++k;
+    }
 }
 
+// Merge sort function
+void mergeSort(std::vector<int>& arr, int left, int right)
+{
+    if (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+        merge(arr, left, mid, right);
+    }
+}
+// Function to get sorted main chain using merge sort
+std::vector<int> getSortedMainChain(const std::vector<int>& main_chain)
+{
+    std::vector<int> sorted_chain = main_chain;
+    mergeSort(sorted_chain, 0, sorted_chain.size() - 1);
+    return sorted_chain;
+}
 
 int find_pending_elment(std::vector<int>& pending_chain, std::vector<int>& main_chain, int value_sorted_main_chain)
 {
@@ -109,9 +171,6 @@ std::vector<int> generate_jacobsthal_sequence(int limit)
     return jacobsthal;
 }
 
-// Function to reorder Jacobsthal sequence as per the specified pattern
-// so if the sequence is like this (1 , 3 , 5 , 11)
-// the reordered sequence will be like this (1 , 3 , 2 , 5 , 4 , 11 , 10 , 9 , 8 , 7 , 6)
 std::vector<int> reorder_jacobsthal_sequence(const std::vector<int>& jacobsthal, int limit)
 {
     std::vector<int> reordered;
@@ -154,15 +213,22 @@ void binary_insert(std::vector<int>& new_vector, int pending_num)
         middle = begin + (end - begin) / 2;
 
         if (new_vector[middle] < pending_num)
+        {
            begin = middle + 1;
+           comp++;
+        }
         else if ((new_vector[middle] > pending_num && new_vector[middle - 1] < pending_num)
             || (!new_vector[middle - 1] && new_vector[middle] > pending_num))
         {
+            comp++;
             new_vector.insert(new_vector.begin() + middle , pending_num);
             break;
         }
         else if (new_vector[middle] > pending_num)
+        {
             end = middle - 1;
+            comp++;
+        }
     }
     if (begin > end) // and i added this to fix the invalid read
     {
@@ -171,40 +237,37 @@ void binary_insert(std::vector<int>& new_vector, int pending_num)
 }
 
 //23 354 5 353 234 57 5 234
-std::vector<int> sort_vector1(std::vector<int>& pinding_chain, std::vector<int>& main_chain, std::vector<int>& sorted_main_chain)
+std::vector<int> sort_vector(std::vector<int>& pinding_chain, std::vector<int>& main_chain, std::vector<int>& sorted_main_chain)
 {
-    // generate the jacobsthal sequence
     int size = sorted_main_chain.size() - 1;
     std::vector<int> jacobsthal = generate_jacobsthal_sequence(size);
     std::vector<int> reordered_jacobsthal = reorder_jacobsthal_sequence(jacobsthal, size);
-    //create a copy of the sorted main chain
     std::vector<int> sroted_main_chain_copy = sorted_main_chain;
     sroted_main_chain_copy.insert( sroted_main_chain_copy.begin(), find_pending_elment(pinding_chain, main_chain, sorted_main_chain[0]));
 
     size_t j = 0;
-    while (j < reordered_jacobsthal.size())
+    while (j < reordered_jacobsthal.size() - 1 && j < sorted_main_chain.size() - 1)
     {
         int i = reordered_jacobsthal[j];
-        std::cout << "i : " << i << " and reordered_jacobsthal[j] :" << reordered_jacobsthal[j] << std::endl;
-        if (i > size)
-            break;
         int pending_num = find_pending_elment(pinding_chain, main_chain, sorted_main_chain[i]);
         std::cout << "pending_num :" << pending_num << std::endl;
-        if ((sorted_main_chain[i + 1] && pending_num < sorted_main_chain[i + 1]) || (!sorted_main_chain[i + 1]))
-        {
-            binary_insert(sroted_main_chain_copy, pending_num);
-            //std::cout << "sorted_main_chain after inserting element :" ;
-            //printVector(sroted_main_chain_copy);
-        }
+        binary_insert(sroted_main_chain_copy, pending_num);
         j++;
     }
     if (is_odd == true)
     {
         if (sroted_main_chain_copy.back() > pinding_chain.back())
+        {
             binary_insert(sroted_main_chain_copy, pinding_chain.back());
+            comp++;
+        }
         else
+        {
             sroted_main_chain_copy.push_back(pinding_chain.back());
+            comp++;
+        }
     }
+    std::cout << "comp : " << comp << std::endl;
     return sroted_main_chain_copy;
 }
 
