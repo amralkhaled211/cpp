@@ -5,6 +5,8 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
+#include <ctime>
+#include <iomanip>
 
 std::vector<int> Insert_elements(int ac, char **av);
 void printVector(const std::vector<int>& vec);

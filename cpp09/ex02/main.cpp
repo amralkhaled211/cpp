@@ -7,6 +7,10 @@ void processChains(const std::vector<int>& Vector_C)
     std::vector<int> main_chain;
     divideAndCompare(Vector_C, pending_chain, main_chain);
     std::vector<int> sorted_main_chain = getSortedMainChain(main_chain);
+    //std::cout << "main_chain elements: ";
+    //printVector_B(sorted_main_chain);
+    //std::cout << "pending_chain elements: ";
+    //printPending(pending_chain, main_chain, sorted_main_chain);
     std::vector<int> vector_sorted = sort_vector(pending_chain, main_chain, sorted_main_chain);
     printVector(vector_sorted);
 }
@@ -24,7 +28,14 @@ int	main(int ac, char **av)
     {
         return 1;
     }
+    clock_t start = clock();
     processChains(Vector_C);
+    clock_t end = clock();
+
+    double duration = (double)(end - start) / CLOCKS_PER_SEC;
+    std::cout << "Time to process a range of " << Vector_C.size() << " elements with std::vector: " <<  std::fixed << std::setprecision(5) << duration << " us" << std::endl;
+
+    return 0;
 }
 
 

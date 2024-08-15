@@ -68,14 +68,6 @@ void divideAndCompare(const std::vector<int>& input, std::vector<int>& smallElem
     }
 }
 
-
-// std::vector<int> getSortedMainChain(const std::vector<int>& main_chain)// i have to perform here the merge sort algrothim
-// {
-//     std::vector<int> sorted_chain = main_chain;
-//     std::sort(sorted_chain.begin(), sorted_chain.end());
-//     return sorted_chain;
-// }
-
 void merge(std::vector<int>& arr, int left, int mid, int right)
 {
     int n1 = mid - left + 1;
@@ -152,11 +144,16 @@ int find_pending_elment(std::vector<int>& pending_chain, std::vector<int>& main_
     return pending_chain[postion];
 }
 
-
-
 std::vector<int> generate_jacobsthal_sequence(int limit)
 {
     std::vector<int> jacobsthal;
+
+    if (limit == 2)
+    {
+        jacobsthal.push_back(1);
+        jacobsthal.push_back(2);
+        return jacobsthal;
+    }
     jacobsthal.push_back(1);
     jacobsthal.push_back(3);
     int n = 2;
@@ -246,11 +243,11 @@ std::vector<int> sort_vector(std::vector<int>& pinding_chain, std::vector<int>& 
     sroted_main_chain_copy.insert( sroted_main_chain_copy.begin(), find_pending_elment(pinding_chain, main_chain, sorted_main_chain[0]));
 
     size_t j = 0;
-    while (j < reordered_jacobsthal.size() - 1 && j < sorted_main_chain.size() - 1)
+    while (j < reordered_jacobsthal.size() && j < sorted_main_chain.size() - 1)
     {
         int i = reordered_jacobsthal[j];
         int pending_num = find_pending_elment(pinding_chain, main_chain, sorted_main_chain[i]);
-        std::cout << "pending_num :" << pending_num << std::endl;
+        //std::cout << "pending_num :" << pending_num << std::endl;
         binary_insert(sroted_main_chain_copy, pending_num);
         j++;
     }
