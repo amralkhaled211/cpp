@@ -7,15 +7,15 @@ void processChains(const std::vector<int>& Vector_C)
     std::vector<int> main_chain;
     divideAndCompare(Vector_C, pending_chain, main_chain);
     std::vector<int> sorted_main_chain = getSortedMainChain(main_chain);
-    //std::cout << "main_chain elements: ";
-    //printVector_B(sorted_main_chain);
-    //std::cout << "pending_chain elements: ";
-    //printPending(pending_chain, main_chain, sorted_main_chain);
+    // std::cout << "main_chain elements: ";
+    // printVector_B(sorted_main_chain);
+    // std::cout << "pending_chain elements: ";
+    // printPending(pending_chain, main_chain, sorted_main_chain);
     std::vector<int> vector_sorted = sort_vector(pending_chain, main_chain, sorted_main_chain);
     printVector(vector_sorted);
 }
 
-
+/// i have 4 10 7 5 9 1 for this case 11 comp
 int	main(int ac, char **av)
 {
 	if (ac == 1 || ac == 2)
@@ -23,12 +23,14 @@ int	main(int ac, char **av)
 		std::cerr << "Error : nothing to sort !!" << std::endl;
 		return 1;
 	}
+    clock_t start = clock();
 	std::vector<int> Vector_C = Insert_elements(ac, av);
+    printVector(Vector_C);
     if (Vector_C.empty())
     {
         return 1;
     }
-    clock_t start = clock();
+    std::cout << "size of big array: " << Vector_C.size() << std::endl;
     processChains(Vector_C);
     clock_t end = clock();
 
