@@ -21,7 +21,7 @@ BitcoinExchange::BitcoinExchange()
 
 void BitcoinExchange::Exchanger(const std::string &file)
 {
-	std::ifstream input_file(file);
+	std::ifstream input_file(file.c_str());
 	if (!input_file.is_open())
 	{
 		std::cerr << "Erorr opening a file " << std::endl;
@@ -36,7 +36,6 @@ void BitcoinExchange::Exchanger(const std::string &file)
 		return ;
 	}
 	input_file.seekg(0, std::ios::beg);
-	//check the right format of the first line
 	std::string line;
 	std::getline(input_file, line);
 	if (line != "date | value")
@@ -49,14 +48,13 @@ void BitcoinExchange::Exchanger(const std::string &file)
 		size_t delim = line.find("|");
 		if (delim == std::string::npos)
         {
-            std::cout << "Error: bad input => " << line << std::endl;
+            std::cerr << "Error: bad input => " << line << std::endl;
             continue;
         }
 		std::string key = delete_spaces(line.substr(0, delim));
-		//check if valid date
 		if (!check_valid_key(key))
 		{
-			std::cout << "Error: bad input => " << key << std::endl;
+			std::cerr << "Error: bad input => " << key << std::endl;
 			continue;
 		}
 		std::string value = delete_spaces(line.substr(delim + 1, line.length()));
@@ -72,7 +70,7 @@ void BitcoinExchange::Exchanger(const std::string &file)
 			it = this->DB.find(old_date);
 		}
 		std::cout << key << " => " << value  << " = "
-                << std::stof(it->second) * std::stof(value) << std::endl;
+                << std::atof(it->second.c_str()) * std::atof(value.c_str()) << std::endl;
 	}
 }
 
@@ -120,9 +118,9 @@ bool BitcoinExchange::check_valid_key(const std::string& key)
     }
 
     // Extract year, month, and day from the key
-    int year = std::stoi(key.substr(0, 4));
-    int month = std::stoi(key.substr(5, 2));
-    int day = std::stoi(key.substr(8, 2));
+    int year = std::atoi(key.substr(0, 4).c_str());
+    int month = std::atoi(key.substr(5, 2).c_str());
+    int day = std::atoi(key.substr(8, 2).c_str());
 
     // Check if year, month, and day are within valid ranges
     if ( year < 2009 || year < 0 || month < 1 || month > 12 || day < 1 || day > 31)
@@ -151,7 +149,7 @@ bool BitcoinExchange::check_valid_key(const std::string& key)
 
 bool	BitcoinExchange::check_valid_value (const std::string &value)
 {
-	float num = std::stof(value);
+	float num = std::atof(value.c_str());
 	
 	if (num < 0)
 	{
@@ -168,9 +166,9 @@ bool	BitcoinExchange::check_valid_value (const std::string &value)
 
 std::string BitcoinExchange::prev_date(const std::string& date)
 {
-    int year = std::stoi(date.substr(0, 4));
-    int month = std::stoi(date.substr(5, 2));
-    int day = std::stoi(date.substr(8, 2));
+    int year = std::atoi(date.substr(0, 4).c_str());
+    int month = std::atoi(date.substr(5, 2).c_str());
+    int day = std::atoi(date.substr(8, 2).c_str());
 
     int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     bool is_leap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
@@ -187,9 +185,17 @@ std::string BitcoinExchange::prev_date(const std::string& date)
         }
         day = daysInMonth[month - 1];
     }
-    std::string newYear = std::to_string(year);
-    std::string newMonth = (month < 10) ? "0" + std::to_string(month) : std::to_string(month);
-    std::string newDay = (day < 10) ? "0" + std::to_string(day) : std::to_string(day);
+	std::stringstream ss;
+	ss << year;
+	std::string newYear = ss.str();
+
+	ss.str(""); // Clear the stringstream
+	ss << (month < 10 ? "0" : "") << month;
+	std::string newMonth = ss.str();
+
+	ss.str(""); // Clear the stringstream
+	ss << (day < 10 ? "0" : "") << day;
+	std::string newDay = ss.str();
 
     return newYear + "-" + newMonth + "-" + newDay;
 }

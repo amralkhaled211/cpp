@@ -6,7 +6,9 @@
 #include <map>
 #include <fstream>
 #include <string>
-#include <regex>
+#include <cstdlib>
+#include <sstream>
+//#include <regex>
 
 class BitcoinExchange
 {
