@@ -150,7 +150,7 @@ bool BitcoinExchange::check_valid_key(const std::string& key)
 bool	BitcoinExchange::check_valid_value (const std::string &value)
 {
 	float num = std::atof(value.c_str());
-	
+
 	if (num < 0)
 	{
 		std::cerr << "Error: not a positive number " << std::endl;
@@ -161,6 +161,7 @@ bool	BitcoinExchange::check_valid_value (const std::string &value)
 		std::cerr << "Error: too large a number" << std::endl;
 		return false;
 	}
+	//if (value ==) i might need to check for a slight bigger number than 1000 somthing like 1000.0001
 	return true;
 }
 
