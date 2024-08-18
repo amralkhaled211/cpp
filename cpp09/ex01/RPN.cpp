@@ -55,13 +55,13 @@ double	RPN::get_the_resuelt(double value1, double value2, double oper)
 	double res;
 
 	if(oper == '*')
-		return res = value1 * value2;
+		return res = value2 * value1;
 	if(oper == '+')
-		return res = value1 + value2;
+		return res = value2 + value1;
 	if(oper == '/')
-		return res = value1 / value2;
+		return res = value2 / value1;
 	if(oper == '-')
-		return res = value1 - value2;
+		return res = value2 - value1;
 	return 0;
 }
 
@@ -83,7 +83,7 @@ void RPN::processRPN(char oper)
 	double value2 = this->RPN_stack.top();
 	this->RPN_stack.pop();
     double new_value = get_the_resuelt(value1, value2, oper);
-    std::cout << "new_value: " << new_value << std::endl;
+    //std::cout << "new_value: " << new_value << std::endl;
 	if (new_value > std::numeric_limits<double>::max() || new_value < -std::numeric_limits<double>::max())
     	throw std::invalid_argument("Result is out of range");
 	this->RPN_stack.push(new_value);

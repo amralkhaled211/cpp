@@ -8,6 +8,7 @@
 #include <string>
 #include <cstdlib>
 #include <sstream>
+#include <iomanip>
 //#include <regex>
 
 class BitcoinExchange

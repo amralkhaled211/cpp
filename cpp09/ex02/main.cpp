@@ -42,7 +42,7 @@ int	main(int ac, char **av)
     clock_t end = clock();
     double duration = (double)(end - start) / CLOCKS_PER_SEC;
     std::cout << "Time to process a range of " << Vector_C.size() << " elements with std::vector: " <<  std::fixed << std::setprecision(5) << duration << " us" << std::endl;
-    std::cout << "Number of comparisons: " << comp << std::endl;
+    //std::cout << "Number of comparisons: " << comp << std::endl;
 
     comp = 0;
     //================================================================================================

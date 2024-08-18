@@ -27,7 +27,6 @@ void BitcoinExchange::Exchanger(const std::string &file)
 		std::cerr << "Erorr opening a file " << std::endl;
 		return;
 	}
-	//check for empty file 
 	input_file.seekg(0, std::ios::end);
 	if (input_file.tellg() == 0)
 	{
@@ -69,7 +68,7 @@ void BitcoinExchange::Exchanger(const std::string &file)
 			old_date = prev_date(new_date);
 			it = this->DB.find(old_date);
 		}
-		std::cout << key << " => " << value  << " = "
+		std::cout << key << " => " << value  << " = "  
                 << std::atof(it->second.c_str()) * std::atof(value.c_str()) << std::endl;
 	}
 }
@@ -117,30 +116,23 @@ bool BitcoinExchange::check_valid_key(const std::string& key)
         }
     }
 
-    // Extract year, month, and day from the key
     int year = std::atoi(key.substr(0, 4).c_str());
     int month = std::atoi(key.substr(5, 2).c_str());
     int day = std::atoi(key.substr(8, 2).c_str());
 
-    // Check if year, month, and day are within valid ranges
     if ( year < 2009 || year < 0 || month < 1 || month > 12 || day < 1 || day > 31)
 	{
-		// std::cerr << "Error : invalid year range !!" << std::endl;
         return false;
     }
-    // Check for months with fewer than 31 days
     if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
 	{
-		// std::cerr << "Error : invalid : days don't match month !!" << std::endl;
         return false;
     }
-    // Check for February and leap years
     if (month == 2)
 	{
         bool is_leap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
         if (day > 29 || (day == 29 && !is_leap))
 		{
-			// std::cerr << "Error : invalid : February format!!" << std::endl;
             return false;
         }
     }
@@ -161,7 +153,6 @@ bool	BitcoinExchange::check_valid_value (const std::string &value)
 		std::cerr << "Error: too large a number" << std::endl;
 		return false;
 	}
-	//if (value ==) i might need to check for a slight bigger number than 1000 somthing like 1000.0001
 	return true;
 }
 

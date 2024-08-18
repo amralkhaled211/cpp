@@ -19,8 +19,8 @@ class RPN
 		bool	is_operation(char opr);
 		double	get_the_resuelt(double value1, double value2, double oper);
 		double	stringToDouble(const std::string& str);
-		RPN(const RPN &other);
 		std::list<std::string> split(const std::string &s, char delimiter);
+		RPN(const RPN &other);
 		RPN &operator=(const RPN &other);
 	public :
 		RPN();

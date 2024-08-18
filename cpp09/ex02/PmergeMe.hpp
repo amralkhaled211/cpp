@@ -55,9 +55,9 @@ Container Insert_elements(int ac, char **av)
             return elements;
         }
         std::stringstream ss((std::string(av[i])));
-        std::cout << "ss: " << ss << std::endl;
         int value;
-        if (ss >> value && value >= 0)
+        char extra;
+        if (ss >> value && !(ss >> extra) && value >= 0)
         {
             elements.push_back(value);
         }
@@ -70,6 +70,7 @@ Container Insert_elements(int ac, char **av)
     }
     return elements;
 }
+
 
 
 template <typename Container>
